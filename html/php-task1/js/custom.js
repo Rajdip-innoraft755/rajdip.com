@@ -7,4 +7,7 @@ $(document).ready(function(){
         $(".lname>.error").css("display","none");
         $(".fullname>input").val($(".fname>input").val()+" "+$(".lname>input").val());
       });
+      // if($(".fname>input").val()=='' || $(".lname").val()=='');
+      
+      // return true;
 });
