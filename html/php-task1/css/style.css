@@ -50,18 +50,13 @@ body {
   font-size: 20px;
 }
 
-.submit {
-  text-decoration: none;
-  padding: 14px 27px;
-  border-radius: 20px;
-  border: none;
-  background: blue;
-  display: inline-block;
-}
-
-.submit input {
-  background: transparent;
-  border: none;
-  color: white;
-  font-size: 15px;
+.submit input{
+    text-decoration: none;
+    padding: 14px 27px;
+    border-radius: 20px;
+    border: none;
+    background: black;
+    font-size: 15px;
+    display: inline-block;
+    color: white;
 }
