@@ -39,6 +39,7 @@ body {
   text-align: center;
   width: 300px;
   font-size: 15px;
+  background-color: white;
 }
 
 .input-field input:focus {
@@ -50,13 +51,16 @@ body {
   font-size: 20px;
 }
 
-.submit input{
+.submit {
     text-decoration: none;
     padding: 14px 27px;
     border-radius: 20px;
     border: none;
-    background: black;
+    background: blue;
     font-size: 15px;
     display: inline-block;
     color: white;
+}
+.error{
+  color: red;
 }
