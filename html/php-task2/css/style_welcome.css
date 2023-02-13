@@ -14,3 +14,13 @@
     vertical-align: center;
   }
   
+  .details-shown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    background-color: skyblue;
+    padding: 50px;
+    width: 100%;
+  }
