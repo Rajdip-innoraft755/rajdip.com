@@ -1,5 +1,8 @@
 <?php  
   session_start();
+  // ini_set('display_errors', 1);
+  // ini_set('display_startup_errors', 1);
+  // error_reporting(E_ALL);
   class Validate{
     public $fname ="";
     public $lname="";
@@ -10,8 +13,6 @@
     public $target_dir = "images/";
     public $target_file;
     public $imageFileType;
-    public $phn;
-    public $phnErr="";
     public $marks=array();
     public $subject=array();
     public $subject_marks_array=array();
@@ -22,13 +23,14 @@
       $subject_marks_array=explode("\n",$details);
     }
 
-    public function __construct($fname,$lname,$file_name,$marks_table,$phn){
+
+    
+    public function __construct($fname,$lname,$file_name,$marks_table){
       $this->fname=$fname;
       $this->lname=$lname;
       $this->target_file = $this->target_dir . basename($file_name);
       $this->imageFileType = strtolower(pathinfo($this->target_file,PATHINFO_EXTENSION));
       $this->marksStoring($marks_table);
-      $this->phn=$phn;
     }
 
     public function isEmpty(){
@@ -39,10 +41,6 @@
       }
       if (empty($this->lname)){
         $this->lnameErr="* last name is required.";
-        $flag=false;
-      } 
-      if (empty($this->phn)){
-        $this->phnErr="* phone number is required.";
         $flag=false;
       } 
       return $flag;
@@ -70,18 +68,6 @@
       }
       return $flag;
     }
-
-    public function isIndPhn(){
-      $flag=true;
-      if(!str_starts_with($this->phn,"+91" )){
-        $this->phnErr="* enter a valid indian phone number";
-        $flag=false;
-      }
-      else
-        $flag=$this->validPhn();
-      return $flag;
-    }
-
     public function validMarksFormat(){
       $flag=true;
       global $subject_marks_array;
@@ -104,36 +90,24 @@
       return $flag;
     }
 
-    public function validPhn(){
-      $flag=true;
-      if(!preg_match("/^[0-9]{10}$/",substr($this->phn,3))){
-        $this->phnErr="* enter a valid phone number.";
-        $flag=false;
-      }
-      return $flag;
-    }
-
   }
 
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-    $obj=new Validate($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marks_table"],$_POST["phn"]);
+    $obj=new Validate($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marks_table"]);
     $obj->isEmpty();
     $obj->isAlpha();
     $obj->imgType();
     $obj->validMarksFormat();
-    $obj->isIndPhn();
-    if($obj->isEmpty() && $obj->isAlpha() && $obj->imgType()  && $obj->validMarksFormat() && $obj->isIndPhn()){
+    if($obj->isEmpty() && $obj->isAlpha() && $obj->imgType() && $obj->validMarksFormat()){
       $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
       $_SESSION["img_path"]=$obj->target_file;
       $_SESSION["marks"]=$obj->marks;
       $_SESSION["subject"]=$obj->subject;
-      $_SESSION["phn"]=$obj->phn;
       header("location:welcome.php");
     }
   }
 ?>
-
 
 
 
@@ -158,7 +132,7 @@
         
         <form method="POST"  action="<?php echo $_SERVER["PHP-SELF"]; ?>" enctype="multipart/form-data">
           <div class="input-field fname">
-            <span>FIRST NAME :</span> <input type="text" name="fname" value="<?php echo isset($_POST['fname']) ? $obj->fname : '' ?>" placeholder="enter your first name">
+            <span>FIRST NAME :</span> <input id="target" type="text" name="fname" value="<?php echo isset($_POST['fname']) ? $obj->fname : '' ?>" placeholder="enter your first name">
             <span class="error"><?php echo $obj->fnameErr; ?></span>
             
           </div>
@@ -169,7 +143,7 @@
           <div class="input-field fullname">
             <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($lname." ".$lname) : '' ?>" disabled>
           </div>
-          <div class="input-field image-upload">
+          <div class="input-field img-upload">
             <span>CHOOSE YOUR IMAGE :</span> <input type="file" name="image-upload" id="image-upload">
             <span class="error"><?php echo $obj->imgErr; ?></span>
           </div>
@@ -178,10 +152,7 @@
             <textarea rows=10 name="marks_table" placeholder="enter your marks"></textarea>
             <span class="error"><?php echo $obj->marksErr; ?></span>
           </div>
-          <div class="input-field phone">
-            <span>PHONE NUMBER (Enter with your contry code) :</span> <input type="text" name="phn" value="<?php echo isset($_POST['phn']) ? $obj->phn : '' ?>" placeholder="enter your phone number">
-            <span class="error"><?php echo $obj->phnErr; ?></span>
-          </div>
+          
           <input class="submit" type="submit" name="submit" id="submit">
         </form>
       </div>

@@ -1,9 +1,13 @@
 <?php  
   session_start();
+  // ini_set('display_errors', 1);
+  // ini_set('display_startup_errors', 1);
+  // error_reporting(E_ALL);
   // echo $_SESSION["fullname"];
   $img_path=$_SESSION["img_path"];
   $marks=$_SESSION["marks"];
   $subject=$_SESSION["subject"];
+    
   // echo "<img src='$img_path' style='width:200px;height:100px'>";
 ?>
 
@@ -25,9 +29,6 @@
       </div>
       <div class="name">
         <h1><?php echo $_SESSION["fullname"]; ?></h1>
-      </div>
-      <div class="phone">
-        <h1><?php echo $_SESSION["phn"]; ?></h1>
       </div>
       <div class="marks_table">
         <h2>Marks Obtained</h2>

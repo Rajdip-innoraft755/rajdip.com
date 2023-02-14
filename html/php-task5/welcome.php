@@ -29,6 +29,9 @@
       <div class="phone">
         <h1><?php echo $_SESSION["phn"]; ?></h1>
       </div>
+      <div class="mail">
+        <h1><?php echo $_SESSION["mail"]; ?></h1>
+      </div>
       <div class="marks_table">
         <h2>Marks Obtained</h2>
           <table>

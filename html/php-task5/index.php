@@ -10,25 +10,27 @@
     public $target_dir = "images/";
     public $target_file;
     public $imageFileType;
-    public $phn;
-    public $phnErr="";
     public $marks=array();
     public $subject=array();
     public $subject_marks_array=array();
     public $marksErr="";
+    public $phn;
+    public $phnErr="";
+    public $mail="";
+    public $mailErr="";
 
     public static function marksStoring($details){
       global $subject_marks_array;
       $subject_marks_array=explode("\n",$details);
     }
-
-    public function __construct($fname,$lname,$file_name,$marks_table,$phn){
+    public function __construct($fname,$lname,$file_name,$marks_table,$phn,$mail){
       $this->fname=$fname;
       $this->lname=$lname;
       $this->target_file = $this->target_dir . basename($file_name);
       $this->imageFileType = strtolower(pathinfo($this->target_file,PATHINFO_EXTENSION));
       $this->marksStoring($marks_table);
       $this->phn=$phn;
+      $this->mail=$mail;
     }
 
     public function isEmpty(){
@@ -113,22 +115,64 @@
       return $flag;
     }
 
+    public function vaildMail(){
+      $curl = curl_init();
+      curl_setopt_array($curl, array(
+      CURLOPT_URL => "https://api.apilayer.com/email_verification/check?email=".$this->mail,
+      CURLOPT_HTTPHEADER => array(
+          "Content-Type: text/plain",
+          "apikey: Bdj7elVVLqW7Yo54gI5GzWrceeZZDGIw"
+      ),
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "POST"
+      ));
+      $response = curl_exec($curl);
+      $validationResult = json_decode($response, true);
+      if ($validationResult['format_valid'] && $validationResult['smtp_check']) {
+          $flag=true;
+      } else {
+          $this->mailErr = " Enter email in proper format";
+          $flag=false;
+      }
+      curl_close($curl);
+      return $flag;
+    }
+
+    public function validMailRegEx(){
+      $flag=true;
+      if(!preg_match("/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/",$this->mail)){
+        $flag=false;
+        $this->mailErr="* Enter email in proper format";
+      }
+      return $flag;
+    }
+
+
+
   }
 
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-    $obj=new Validate($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marks_table"],$_POST["phn"]);
+    $obj=new Validate($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marks_table"],$_POST["phn"],$_POST["mail"]);
     $obj->isEmpty();
     $obj->isAlpha();
     $obj->imgType();
     $obj->validMarksFormat();
     $obj->isIndPhn();
-    if($obj->isEmpty() && $obj->isAlpha() && $obj->imgType()  && $obj->validMarksFormat() && $obj->isIndPhn()){
+    $obj->validMailRegEx();
+    // $obj->vaildMail();
+    if($obj->isEmpty() && $obj->isAlpha() && $obj->imgType() && $obj->validMarksFormat() && $obj->isIndPhn() && $obj->validMailRegEx()){
       $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
       $_SESSION["img_path"]=$obj->target_file;
       $_SESSION["marks"]=$obj->marks;
       $_SESSION["subject"]=$obj->subject;
       $_SESSION["phn"]=$obj->phn;
+      $_SESSION["mail"]=$obj->mail;
       header("location:welcome.php");
     }
   }
@@ -181,6 +225,10 @@
           <div class="input-field phone">
             <span>PHONE NUMBER (Enter with your contry code) :</span> <input type="text" name="phn" value="<?php echo isset($_POST['phn']) ? $obj->phn : '' ?>" placeholder="enter your phone number">
             <span class="error"><?php echo $obj->phnErr; ?></span>
+          </div>
+          <div class="input-field mail">
+            <span>E-MAIL ID :</span> <input type="text" name="mail" value="<?php echo isset($_POST['mail']) ? $obj->mail : '' ?>" placeholder="enter your email id">
+            <span class="error"><?php echo $obj->mailErr; ?></span>
           </div>
           <input class="submit" type="submit" name="submit" id="submit">
         </form>
