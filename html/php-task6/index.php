@@ -159,9 +159,9 @@
     $obj->validMarksFormat();
     $obj->isIndPhn();
     $obj->validMailRegEx();
-    $obj->vaildMail();
+    // $obj->vaildMail();
     if($obj->isEmpty() && $obj->isAlpha() && $obj->imgType() && $obj->validMarksFormat() && $obj->isIndPhn() && $obj->validMailRegEx()){
-      $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
+      $_SESSION["fullname"]=$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
       $_SESSION["img_path"]=$obj->target_file;
       $_SESSION["marks"]=$obj->marks;

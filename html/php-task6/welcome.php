@@ -1,16 +1,19 @@
 <?php  
   session_start();
 
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
+  // ini_set('display_errors', 1);
+  // ini_set('display_startup_errors', 1);
+  // error_reporting(E_ALL);
+
+  
   $img_path=$_SESSION["img_path"];
   $marks=$_SESSION["marks"];
   $subject=$_SESSION["subject"];
-  // echo "<img src='$img_path' style='width:200px;height:100px'>";
-
+  
 
 ?>
+
+
 
 
 
@@ -29,7 +32,7 @@
         <?php echo "<img src='$img_path' style='width:200px;height:200px; border-radius:50%'>"; ?>
       </div>
       <div class="name">
-        <h1><?php echo $_SESSION["fullname"]; ?></h1>
+        <h1><?php echo "Hello! ".$_SESSION["fullname"]; ?></h1>
       </div>
       <div class="phone">
         <h1><?php echo $_SESSION["phn"]; ?></h1>
@@ -56,8 +59,12 @@
               ?>
             </tbody> 
           </table>
+          <a class="download" href="create_pdf.php">DOWNLOAD PDF</a>
       </div>
     </div>
   </section>
 </body>
 </html>
+<?php
+  // header('location:create_pdf.php','refreash:1000');
+?>
