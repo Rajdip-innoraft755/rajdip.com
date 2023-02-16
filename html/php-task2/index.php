@@ -1,68 +1,24 @@
 <?php  
   session_start();
-  class Validate{
-    public $fname ="";
-    public $lname="";
-    public $fnameErr="";
-    public $lnameErr="";
-    public $imgErr="";
-    public $fullname="";
-    public $target_dir = "images/";
-    public $target_file;
-    public $imageFileType;
-
-
-    public function __construct($fname,$lname,$file_name){
+  if($_SESSION["active"]!=true)
+  {
+    header("location:../index.php");
+  }
+  require('../common.php');
+  class Task2 extends Validate{
+    public function setter($fname,$lname,$file_name){
       $this->fname=$fname;
       $this->lname=$lname;
       $this->target_file = $this->target_dir . basename($file_name);
       $this->imageFileType = strtolower(pathinfo($this->target_file,PATHINFO_EXTENSION));
     }
-
-    public function isEmpty(){
-      $flag=true;
-      if (empty($this->fname)){ 
-        $this->fnameErr="* first name is required.";
-        $flag=false;
-      }
-      if (empty($this->lname)){
-        $this->lnameErr="* last name is required.";
-        $flag=false;
-      } 
-      return $flag;
-    }
-
-
-    public function isAlpha(){
-      $flag=true;
-      if(!preg_match("/^[a-zA-Z ]*$/",$this->fname)){
-        $this->fnameErr = "* Only alphabets and white space are allowed";
-        $flag=false;
-      }
-      if (!preg_match("/^[a-zA-Z ]*$/",$this->lname)) {  
-        $this->lnameErr = "* Only alphabets and white space are allowed"; 
-        $flag=false;
-      }
-      return $flag;
-    }
-
-    public function imgType(){
-      $flag=true;
-      if($this->imageFileType != "jpg" && $this->imageFileType != "png" && $this->imageFileType != "jpeg" && $this->imageFileType != "gif" ) {
-        $this->imgErr="Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-        $flag=false;
-      }
-      return $flag;
-    }
-
   }
-
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-    $obj=new Validate($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"]);
-    $obj->isEmpty();
+    $obj=new Task2();
+    $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"]);
     $obj->isAlpha();
     $obj->imgType();
-    if($obj->isEmpty() && $obj->isAlpha() && $obj->imgType()){
+    if( $obj->isAlpha() && $obj->imgType()){
       $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
       $_SESSION["img_path"]=$obj->target_file;
@@ -91,23 +47,23 @@
   <body>
     <section class="details">
       <div class="container">
-        <h1>welcome <?php echo $obj->fname_final ." ".$obj->lname_final ?> ! please fill the details to move forward .</h1>
+        <h1>welcome ! please fill the details to move forward .</h1>
         
         <form method="POST"  action="<?php echo $_SERVER["PHP-SELF"]; ?>" enctype="multipart/form-data">
           <div class="input-field fname">
-            <span>FIRST NAME :</span> <input id="target" type="text" name="fname" value="<?php echo isset($_POST['fname']) ? $obj->fname : '' ?>" placeholder="enter your first name">
+            <span>FIRST NAME :</span> <input required type="text" name="fname" value="<?php echo isset($_POST['fname']) ? $obj->fname : '' ?>" placeholder="enter your first name">
             <span class="error"><?php echo $obj->fnameErr; ?></span>
             
           </div>
           <div class="input-field lname">
-            <span>LAST NAME :</span> <input type="text" name="lname" value="<?php echo isset($_POST['lname']) ? $obj->lname : '' ?>" placeholder="enter your last name">
+            <span>LAST NAME :</span> <input required type="text" name="lname" value="<?php echo isset($_POST['lname']) ? $obj->lname : '' ?>" placeholder="enter your last name">
             <span class="error"><?php echo $obj->lnameErr; ?></span>
           </div>
           <div class="input-field fullname">
             <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($lname." ".$lname) : '' ?>" disabled>
           </div>
           <div class="input-field img-upload">
-            <span>CHOOSE YOUR IMAGE :</span> <input type="file" name="image-upload" id="image-upload">
+            <span>CHOOSE YOUR IMAGE :</span> <input required type="file" name="image-upload" id="image-upload">
             <span class="error"><?php echo $obj->imgErr; ?></span>
           </div>
           

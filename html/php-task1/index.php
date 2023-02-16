@@ -72,6 +72,9 @@
   </head>
 
   <body>
+    <section class="navbar">
+      
+    </section>
     <section class="details">
       <div class="container">
         <h1>welcome! please fill the details to move forward .</h1>
