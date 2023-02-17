@@ -2,7 +2,7 @@
   // ini_set('display_errors', 1);
   // ini_set('display_startup_errors', 1);
   // error_reporting(E_ALL);
-  class Validate{
+  class Validate{ 
     public $fname ="";
     public $lname="";
     public $fnameErr="";
@@ -59,6 +59,7 @@
 
     public function marksStoring($details){
       global $subject_marks_array;
+      $this->marks_table=$details;
       $subject_marks_array=explode("\n",$details);
     }
 
@@ -75,7 +76,14 @@
         else{
           $temp=explode("|",$data);
           $this->subject[$i]=trim($temp[0]);
-          $this->marks[$i]=trim($temp[1]);
+          if(trim($temp[1])<0 || trim($temp[1]>100)){
+            $this->marksErr="* marks should be between 0 to 100.";
+            $flag=false;
+          }
+          else{
+            $this->marks[$i]=trim($temp[1]);
+          }
+          
           $i++;
         }
       }
@@ -128,24 +136,124 @@
     }
   }
 
-  // if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-  //   $obj=new Validate($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marks_table"],$_POST["phn"],$_POST["mail"]);
-  //   $obj->isEmpty();
-  //   $obj->isAlpha();
-  //   $obj->imgType();
-  //   $obj->validMarksFormat();
-  //   $obj->isIndPhn();
-  //   // $obj->validMailRegEx();
-  //   $obj->vaildMail();
-  //   if($obj->isEmpty() && $obj->isAlpha() && $obj->imgType() && $obj->validMarksFormat() && $obj->isIndPhn()  && $obj->vaildMail()){
-  //     $_SESSION["fullname"]=$obj->fname." ".$obj->lname;
-  //     move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
-  //     $_SESSION["img_path"]=$obj->target_file;
-  //     $_SESSION["marks"]=$obj->marks;
-  //     $_SESSION["subject"]=$obj->subject;
-  //     $_SESSION["phn"]=$obj->phn;
-  //     $_SESSION["mail"]=$obj->mail;
-  //     header("location:welcome.php");
-  //   }
-  // }
 ?>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <!-- <link rel="stylesheet" href="css/style_common.css"> -->
+  <style>
+    * {
+    box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+    
+    .container {
+      width: 1180px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .navbar{
+      background-color: blue;
+    }
+    .navwrap{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .menubar{
+      display: flex;
+      align-items: center;
+      width: 60%;
+    }
+    .navwrap ul{
+      margin:0px;
+      padding: 0px;
+      display: flex;
+      list-style: none;
+    }
+    .navwrap ul li a{
+      display: inline-block;
+      text-decoration: none;
+      font-size: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 20px;
+      transition: 50ms ease-in;
+    }
+    .account{
+      display: flex;
+      width: 40%;
+      align-items: center;
+      justify-content: end;
+      column-gap: 20px;
+      
+    }
+    .account h3{
+      color:white;
+      margin:0px;
+    }
+    .logout{
+      display: inline-block;
+      margin: 20px 0px;
+      padding: 10px 20px;
+      text-decoration: none;
+      background-color: #d44d4d;;
+    }
+    .navwrap ul li a:hover{
+      color: blue;
+      background-color: white;
+    }
+
+  </style>
+</head>
+<body>
+  <section class="navbar">
+    <div class="container">
+      <div class="navwrap">
+        <div class="menubar">
+          <ul>
+            <li>
+              <a href="../php-task1/index-session.php"> TASK 1</a>
+            </li>
+            <li>
+              <a href="../php-task2/">TASK 2</a>
+            </li>
+            <li>
+              <a href="../php-task3/">TASK 3</a>
+            </li>
+            <li>
+              <a href="../php-task4/">TASK 4</a>
+            </li>
+            <li>
+              <a href="../php-task5/">TASK 5</a>
+            </li>
+            <li>
+              <a href="../php-task6/">TASK 6</a>
+            </li>
+          </ul>
+        </div>
+        <div class="account">
+          <h3>WELCOME USER</h3>
+          <ul>
+            <li>
+              <a class="logout" href="../logout.php">LOGOUT</a>
+            </li>
+          </ul>
+        </div>
+      </div>     
+    </div>
+    
+  </section>
+  
+</body>
+</html>

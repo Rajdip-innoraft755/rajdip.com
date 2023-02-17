@@ -67,7 +67,7 @@
             <span class="error"><?php echo $obj->lnameErr; ?></span>
           </div>
           <div class="input-field fullname">
-            <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($lname." ".$lname) : '' ?>" disabled>
+            <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($obj->fname." ".$obj->lname) : '' ?>" readonly>
           </div>
           <div class="input-field image-upload">
             <span>CHOOSE YOUR IMAGE :</span> <input required type="file" name="image-upload" id="image-upload">
@@ -75,11 +75,11 @@
           </div>
           <div class="input-field marks-table">
             <span>MARKS : <br><span class="format">* specified format :<br> subject1|xxx<br> subject2|yyy </span></span> 
-            <textarea required rows=10 name="marks_table" placeholder="enter your marks"></textarea>
+            <textarea required rows=10 name="marks_table" placeholder="enter your marks"><?php echo isset($_POST['marks_table']) ? $obj->marks_table : '' ?></textarea>
             <span class="error"><?php echo $obj->marksErr; ?></span>
           </div>
           <div class="input-field phone">
-            <span>PHONE NUMBER (Enter with your contry code) :</span> <input required type="text" name="phn" value="<?php echo isset($_POST['phn']) ? $obj->phn : '' ?>" placeholder="enter your phone number">
+            <span>PHONE NUMBER (Enter with your contry code) :</span> <input id="target" required type="text" name="phn" value="<?php echo isset($_POST['phn']) ? $obj->phn : '' ?>" placeholder="enter your phone number">
             <span class="error"><?php echo $obj->phnErr; ?></span>
           </div>
           <input class="submit" type="submit" name="submit" id="submit">

@@ -7,7 +7,16 @@ $(document).ready(function(){
         $(".lname>.error").css("display","none");
         $(".fullname>input").val($(".fname>input").val()+" "+$(".lname>input").val());
       });
-      $(".img-upload>button").click(function() {
-        $(".image-upload>.error").css("display","none");
+      $(".marks-table>textarea").keyup(function(){
+        $(".marks-table>.error").css("display","none");
+      });
+      $(".phone>input").keyup(function() {
+        $(".phone>.error").css("display","none");
+      });
+      $(".phone>input").keyup(function() {
+        $(".phone>.error").css("display","none");
+      });
+      $(".mail>input").keyup(function() {
+        $(".mail>.error").css("display","none");
       });
 });

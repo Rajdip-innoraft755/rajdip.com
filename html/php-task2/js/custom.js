@@ -7,11 +7,5 @@ $(document).ready(function(){
         $(".lname>.error").css("display","none");
         $(".fullname>input").val($(".fname>input").val()+" "+$(".lname>input").val());
       });
-      $(".phone>input").keyup(function(){
-        $(".phone>.error").css("display","none");
-      })
-      $(".img-upload>button").click(function() {
-        $(".image-upload>.error").css("display","none");
-      });
       
 });

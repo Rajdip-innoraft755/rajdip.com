@@ -71,7 +71,7 @@
             <span class="error"><?php echo $obj->lnameErr; ?></span>
           </div>
           <div class="input-field fullname">
-            <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($lname." ".$lname) : '' ?>" disabled>
+            <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($obj->fname." ".$obj->lname) : '' ?>" readonly>
           </div>
           <div class="input-field image-upload">
             <span>CHOOSE YOUR IMAGE :</span> <input required type="file" name="image-upload" id="image-upload">

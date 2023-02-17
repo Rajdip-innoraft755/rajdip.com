@@ -5,7 +5,7 @@
     header("location:../index.php");
   }
   require('../common.php');
-  class Task5 extends Validate{
+  class Task6 extends Validate{
     public function setter($fname,$lname,$file_name,$marks_table,$phn,$mail){
       $this->fname=$fname;
       $this->lname=$lname;
@@ -17,7 +17,7 @@
     }
   }
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-    $obj=new Task5();
+    $obj=new Task6();
     $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marks_table"],$_POST["phn"],$_POST["mail"]);
     $obj->isAlpha();
     $obj->imgType();
@@ -69,7 +69,7 @@
             <span class="error"><?php echo $obj->lnameErr; ?></span>
           </div>
           <div class="input-field fullname">
-            <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($lname." ".$lname) : '' ?>" disabled>
+            <span>FULL NAME :</span> <input type="text" name="fullname" placeholder="your full name" value="<?php echo isset($_POST['fullname']) ? ($obj->fname." ".$obj->lname) : '' ?>" readonly>
           </div>
           <div class="input-field image-upload">
             <span>CHOOSE YOUR IMAGE :</span> <input required type="file" name="image-upload" id="image-upload">
