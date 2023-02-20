@@ -13,9 +13,6 @@ $(document).ready(function(){
       $(".phone>input").keyup(function() {
         $(".phone>.error").css("display","none");
       });
-      $(".phone>input").keyup(function() {
-        $(".phone>.error").css("display","none");
-      });
       $(".mail>input").keyup(function() {
         $(".mail>.error").css("display","none");
       });

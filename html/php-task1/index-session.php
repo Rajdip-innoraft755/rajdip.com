@@ -1,11 +1,19 @@
 <?php 
+  //session starts here
   session_start();
+  //check whether the user is logged in or not
   if($_SESSION["active"]!=true)
   {
-    echo "hi";
+    //if user is not logged in then redirect to login page
     header("location:../index.php");
   }
+  //add the '../common.php' file to use the class already written there
   require('../common.php');
+  /**
+   * Task1 - interherited from Validate 
+   * 
+   * 
+   */
   class Task1 extends Validate{
     public function setter($fname,$lname){
       $this->fname=$fname;

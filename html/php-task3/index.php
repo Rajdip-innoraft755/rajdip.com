@@ -6,17 +6,17 @@
   }
   require('../common.php');
   class Task3 extends Validate{
-    public function setter($fname,$lname,$file_name,$marks_table){
+    public function setter($fname,$lname,$file_name,$marksTable){
       $this->fname=$fname;
       $this->lname=$lname;
       $this->target_file = $this->target_dir . basename($file_name);
       $this->imageFileType = strtolower(pathinfo($this->target_file,PATHINFO_EXTENSION));
-      $this->marksStoring($marks_table);
+      $this->marksStoring($marksTable);
     }
   }
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
     $obj=new Task3();
-    $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marks_table"]);
+    $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marksTable"]);
     $obj->isAlpha();
     $obj->imgType();
     $obj->validMarksFormat();
@@ -71,7 +71,7 @@
           </div>
           <div class="input-field marks-table">
             <span>MARKS : <br><span class="format">* specified format :<br> subject1|xxx<br> subject2|yyy </span></span> 
-            <textarea required rows=10 name="marks_table" placeholder="enter your marks"><?php echo isset($_POST['marks_table']) ? $obj->marks_table : '' ?></textarea>
+            <textarea required rows=10 name="marksTable" placeholder="enter your marks"><?php echo isset($_POST['marksTable']) ? $obj->marksTable : '' ?></textarea>
             <span class="error"><?php echo $obj->marksErr; ?></span>
           </div>
           
