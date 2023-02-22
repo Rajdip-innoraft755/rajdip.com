@@ -1,35 +1,5 @@
 <?php 
-  //session starts here
-  session_start();
-  //check whether the user is logged in or not
-  if($_SESSION["active"]!=true)
-  {
-    //if user is not logged in then redirect to login page
-    header("location:../index.php");
-  }
-  //add the '../common.php' file to use the class already written there
-  require('../common.php');
-  /**
-   * Task1 - interherited from Validate 
-   * 
-   * 
-   */
-  class Task1 extends Validate{
-    public function setter($fname,$lname){
-      $this->fname=$fname;
-      $this->lname=$lname;
-    }
-  }
-  if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-    $obj=new Task1();
-    $obj->setter($_POST["fname"],$_POST["lname"]);
-    $obj->isAlpha();
-    if($obj->isAlpha()){
-      echo "i am here ";
-      $_SESSION['fullname']="Hello ! " .$obj->fname." ".$obj->lname;
-      header('location:welcome.php');
-    }
-  }
+  require('action.php');
 ?>
 
 <html lang="en">
@@ -40,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fill details</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style_navbar.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/custom.js"></script>
     <style>

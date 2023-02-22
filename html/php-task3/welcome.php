@@ -1,14 +1,10 @@
 <?php  
   session_start();
-  // ini_set('display_errors', 1);
-  // ini_set('display_startup_errors', 1);
-  // error_reporting(E_ALL);
-  // echo $_SESSION["fullname"];
+  require('../navbar.html');
   $img_path=$_SESSION["img_path"];
   $marks=$_SESSION["marks"];
   $subject=$_SESSION["subject"];
-    
-  // echo "<img src='$img_path' style='width:200px;height:100px'>";
+
 ?>
 
 
@@ -20,6 +16,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome user</title>
   <link rel="stylesheet" href="css/style_welcome.css">
+  <link rel="stylesheet" href="../css/style_navbar.css">
 </head>
 <body>
   <section class="details-shown">

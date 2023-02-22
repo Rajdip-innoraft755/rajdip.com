@@ -1,5 +1,6 @@
 <?php  
   session_start();
+  require_once('../navbar.html');
 ?>
 
 
@@ -11,6 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome user</title>
   <link rel="stylesheet" href="css/style_welcome.css">
+  <link rel="stylesheet" href="../css/style_navbar.css">
 </head>
 <body>
   <section class="details-shown">

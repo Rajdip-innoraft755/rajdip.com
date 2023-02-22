@@ -32,24 +32,42 @@
 
   /**
    * 
-   * @var string $fname used to store firstname of user
-   * @var string $lname used to store lastname of user
-   * @var string $fullname used to store the fullame i.e $fname+" "+$lname
-   * @var string $target_dir used to mention the folder where the images will be stored
-   * @var string $target_file used to store the image file name
-   * @var string $imageFileType used to store the extension of image file
-   * @var string $marksTable used to store the marks input as string
-   * @var array $subjectMarksArray used to the subject marks pair after split $marksTable w.r.t '\n'
-   * @var array $marks used to store the marks
-   * @var array $subject used to store subjects
-   * @var string $phn used to store the phone number
-   * @var string $mail used to store the email-id
-   * @var string $fnameErr used to store the error needs to show if the first name is not in proper format
-   * @var string $lnameErr used to store the error needs to show if the last name is not in proper format 
-   * @var string $imgErr used to store the error needs to show if the image file is not in proper format 
-   * @var string $marksErr used to store the error needs to show if the subject and marks are not in proper format 
-   * @var string $phnErr used to store the error needs to show if the phone number is not in proper format
-   * @var string $mailErr used to store the error needs to show if the email-id is not in proper format
+   * @var string 
+   *  $fname used to store firstname of user
+   * @var string 
+   *  $lname used to store lastname of user
+   * @var string 
+   *  $fullname used to store the fullame i.e $fname+" "+$lname
+   * @var string 
+   *  $target_dir used to mention the folder where the images will be stored
+   * @var string 
+   *  $target_file used to store the image file name
+   * @var string 
+   *  $imageFileType used to store the extension of image file
+   * @var string 
+   *  $marksTable used to store the marks input as string
+   * @var array 
+   *  $subjectMarksArray used to the subject marks pair after split $marksTable w.r.t '\n'
+   * @var array 
+   *  $marks used to store the marks
+   * @var array 
+   *  $subject used to store subjects
+   * @var string 
+   *  $phn used to store the phone number
+   * @var string 
+   *  $mail used to store the email-id
+   * @var string 
+   *  $fnameErr used to store the error needs to show if the first name is not in proper format
+   * @var string 
+   *  $lnameErr used to store the error needs to show if the last name is not in proper format 
+   * @var string 
+   *  $imgErr used to store the error needs to show if the image file is not in proper format 
+   * @var string 
+   *  $marksErr used to store the error needs to show if the subject and marks are not in proper format 
+   * @var string 
+   *  $phnErr used to store the error needs to show if the phone number is not in proper format
+   * @var string 
+   *  $mailErr used to store the error needs to show if the email-id is not in proper format
    * 
    */
 
@@ -272,130 +290,3 @@
 
 ?>
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
-  <!-- <link rel="stylesheet" href="css/style_common.css"> -->
-  <style>
-    * {
-    box-sizing: border-box;
-    }
-    
-    body {
-      margin: 0px;
-      padding: 0px;
-    }
-    
-    .container {
-      width: 1180px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    
-    .navbar{
-      background-color: blue;
-    }
-    .navwrap{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .menubar{
-      display: flex;
-      align-items: center;
-      width: 60%;
-    }
-    .navwrap ul{
-      margin:0px;
-      padding: 0px;
-      display: flex;
-      list-style: none;
-    }
-    .navwrap ul li a{
-      display: inline-block;
-      text-decoration: none;
-      font-size: none;
-      color: white;
-      padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 20px;
-      transition: 50ms ease-in;
-    }
-    .account{
-      display: flex;
-      width: 40%;
-      align-items: center;
-      justify-content: end;
-      column-gap: 20px;
-      
-    }
-    .account h3{
-      color:white;
-      margin:0px;
-    }
-    .logout{
-      display: inline-block;
-      margin: 20px 0px;
-      padding: 10px 20px;
-      text-decoration: none;
-      background-color: #d44d4d;;
-    }
-    .navwrap ul li a:hover{
-      color: blue;
-      background-color: white;
-    }
-
-  </style>
-</head>
-<body>
-  <!-- navbar starts -->
-  <section class="navbar">
-    <!-- container starts -->
-    <div class="container">
-      <!-- navwrap starts -->
-      <div class="navwrap">
-        <!-- menubar starts -->
-        <div class="menubar">
-          <ul>
-            <li>
-              <a href="../php-task1/index-session.php"> TASK 1</a>
-            </li>
-            <li>
-              <a href="../php-task2/">TASK 2</a>
-            </li>
-            <li>
-              <a href="../php-task3/">TASK 3</a>
-            </li>
-            <li>
-              <a href="../php-task4/">TASK 4</a>
-            </li>
-            <li>
-              <a href="../php-task5/">TASK 5</a>
-            </li>
-            <li>
-              <a href="../php-task6/">TASK 6</a>
-            </li>
-          </ul>
-        </div>
-        <!-- menubar ends -->
-        <!-- account starts -->
-        <div class="account">
-          <h3>WELCOME USER</h3>
-          <ul>
-            <li>
-              <a class="logout" href="../logout.php">LOGOUT</a>
-            </li>
-          </ul>
-        </div>
-        <!-- account ends -->
-      </div>  
-      <!-- navwrap ends -->
-    </div>
-    <!-- container ends -->
-  </section>
-  <!-- navbar starts -->
-</body>
-</html>

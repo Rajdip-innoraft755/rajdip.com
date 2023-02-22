@@ -1,37 +1,5 @@
-<?php  
-  session_start();
-  if($_SESSION["active"]!=true)
-  {
-    header("location:../index.php");
-  }
-  require('../common.php');
-  class Task4 extends Validate{
-    public function setter($fname,$lname,$file_name,$marksTable,$phn){
-      $this->fname=$fname;
-      $this->lname=$lname;
-      $this->target_file = $this->target_dir . basename($file_name);
-      $this->imageFileType = strtolower(pathinfo($this->target_file,PATHINFO_EXTENSION));
-      $this->marksStoring($marksTable);
-      $this->phn=$phn;
-    }
-  }
-  if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
-    $obj=new Task4();
-    $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marksTable"],$_POST["phn"]);
-    $obj->isAlpha();
-    $obj->imgType();
-    $obj->validMarksFormat();
-    $obj->isIndPhn();
-    if($obj->isAlpha() && $obj->imgType()  && $obj->validMarksFormat() && $obj->isIndPhn()){
-      $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
-      move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
-      $_SESSION["img_path"]=$obj->target_file;
-      $_SESSION["marks"]=$obj->marks;
-      $_SESSION["subject"]=$obj->subject;
-      $_SESSION["phn"]=$obj->phn;
-      header("location:welcome.php");
-    }
-  } 
+<?php
+  require('action.php');
 ?>
 
 
@@ -45,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fill details</title>
     <link rel="stylesheet" href="css/style_index.css">
+    <link rel="stylesheet" href="../css/style_navbar.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/custom.js"></script>
     <style>
@@ -56,7 +25,7 @@
       <div class="container">
         <h1>welcome ! please fill the details to move forward .</h1>
         
-        <form method="POST"  action="<?php echo $_SERVER["PHP-SELF"]; ?>" enctype="multipart/form-data">
+        <form method="POST"  action="index.php" enctype="multipart/form-data">
           <div class="input-field fname">
             <span>FIRST NAME :</span> <input required type="text" name="fname" value="<?php echo isset($_POST['fname']) ? $obj->fname : '' ?>" placeholder="enter your first name">
             <span class="error"><?php echo $obj->fnameErr; ?></span>

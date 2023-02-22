@@ -1,0 +1,6 @@
+{
+    "autoload":{     
+            "files": ["./navbar.html"],       
+            "classmap": ["./common.php"]
+    }
+}
