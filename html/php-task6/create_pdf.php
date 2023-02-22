@@ -5,7 +5,6 @@ $marks=$_SESSION["marks"];
 $subject=$_SESSION["subject"];
 
 require('fpdf/fpdf.php');
-// require_once('../vendor/autoload.php');
 $pdf = new FPDF('P','mm','Letter');
 $pdf->AddPage();
 $pdf->SetFont('Times','B',16);
