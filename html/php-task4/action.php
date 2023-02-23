@@ -4,6 +4,7 @@
   {
     header("location:../index.php");
   }
+  require_once('../navbar.html');
   require('../vendor/autoload.php');
   class Task4 extends Validate{
     public function setter($fname,$lname,$file_name,$marksTable,$phn){
@@ -18,11 +19,11 @@
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
     $obj=new Task4();
     $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"],$_POST["marksTable"],$_POST["phn"]);
-    $obj->isAlpha();
-    $obj->imgType();
-    $obj->validMarksFormat();
-    $obj->isIndPhn();
-    if($obj->isAlpha() && $obj->imgType()  && $obj->validMarksFormat() && $obj->isIndPhn()){
+    $flagAlpha=$obj->isAlpha();
+    $flagImg=$obj->imgType();
+    $flagMarks=$obj->validMarksFormat();
+    $flagPhn=$obj->isIndPhn();
+    if($flagAlpha && $flagImg && $flagMarks && $flagPhn){
       $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
       $_SESSION["img_path"]=$obj->target_file;

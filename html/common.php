@@ -185,7 +185,10 @@
         else{
           //if the $data is in proper format then spilt $data w.r.t '|' to separate marks and subject
           $temp=explode("|",$data);
-          
+          if(in_array(trim($temp[0]),$this->subject)){
+            $this->marksErr="* duplicate subject not allowed.";
+            $flag=false;
+          }
           //check whether the marks is in between 0 and 100
           if(trim($temp[1])<0 || trim($temp[1]>100)){
             //if the marks does not satisfy the condition then store the error message in $marksErr

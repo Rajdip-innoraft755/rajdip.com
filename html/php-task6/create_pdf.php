@@ -4,13 +4,13 @@ $img_path=$_SESSION["img_path"];
 $marks=$_SESSION["marks"];
 $subject=$_SESSION["subject"];
 
-require('fpdf/fpdf.php');
+// require('fpdf/fpdf.php');
+require('../vendor/autoload.php');
 $pdf = new FPDF('P','mm','Letter');
 $pdf->AddPage();
 $pdf->SetFont('Times','B',16);
 $pdf->SetFillColor(224,224,224);
 $pdf->setTextColor(0, 0, 254);
-// $pdf->Ln(20);
 $pdf->cell(190,20,"BASIC DETAILS",1,1,'C',true);
 $pdf->Cell(95,10,"NAME",1,0,'C');
 $pdf->Cell(95,10,$_SESSION["fullname"],1,1,'C');

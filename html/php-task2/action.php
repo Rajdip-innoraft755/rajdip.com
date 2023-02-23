@@ -4,6 +4,7 @@
   {
     header("location:../index.php");
   }
+  require_once('../navbar.html');
   require_once('../vendor/autoload.php');
   class Task2 extends Validate{
     public function setter($fname,$lname,$file_name){
@@ -16,9 +17,9 @@
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
     $obj=new Task2();
     $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"]);
-    $obj->isAlpha();
-    $obj->imgType();
-    if( $obj->isAlpha() && $obj->imgType()){
+    $flag=$obj->isAlpha();
+    $flag=$obj->imgType();
+    if($flag){
       $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
       $_SESSION["img_path"]=$obj->target_file;
