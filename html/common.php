@@ -3,7 +3,7 @@
   // ini_set('display_startup_errors', 1);
   // error_reporting(E_ALL);
 
-
+  
   /**
    * Validate - use to validate the input takes from user
    * 
@@ -261,23 +261,41 @@
      * 
      */
     public function vaildMail(){
-      $curl = curl_init();
-      curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://api.apilayer.com/email_verification/check?email=".$this->mail,
-      CURLOPT_HTTPHEADER => array(
-          "Content-Type: text/plain",
-          "apikey: Bdj7elVVLqW7Yo54gI5GzWrceeZZDGIw"
-      ),
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => "",
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => "GET"
-      ));
-      $response = curl_exec($curl);
-      $validationResult = json_decode($response, true);
+
+      //----------------------- USING CURL -------------------------
+      // $curl = curl_init();
+      // curl_setopt_array($curl, array(
+      // CURLOPT_URL => "https://api.apilayer.com/email_verification/check?email=".$this->mail,
+      // CURLOPT_HTTPHEADER => array(
+      //     "Content-Type: text/plain",
+      //     "apikey: Bdj7elVVLqW7Yo54gI5GzWrceeZZDGIw"
+      // ),
+      // CURLOPT_RETURNTRANSFER => true,
+      // CURLOPT_ENCODING => "",
+      // CURLOPT_MAXREDIRS => 10,
+      // CURLOPT_TIMEOUT => 0,
+      // CURLOPT_FOLLOWLOCATION => true,
+      // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      // CURLOPT_CUSTOMREQUEST => "GET"
+      // ));
+      // $response = curl_exec($curl);
+      // curl_close($curl);
+
+
+      //--------------- USING GUZZLE -------------------
+
+      require_once('../vendor/autoload.php');
+      $client = new GuzzleHttp\Client(['base_uri' => 'https://api.apilayer.com']);
+      $response = $client->request('GET', '/email_verification/check?email='.$this->mail,[
+        'headers' => [
+          'Content-Type' => 'text/plain',
+          'apikey' => 'Bdj7elVVLqW7Yo54gI5GzWrceeZZDGIw'
+        ]
+      ]);
+      $result=$response->getBody();
+
+      //--------------- COMMON PART OF CURL AND GUZZLE ---------------------------------
+      $validationResult = json_decode($result, TRUE);
       // $flag is used to return either true if the format is valid or false if the format is invalid
       $flag=true;
       //check whether the format_valid and smtp_check returned the true or false
@@ -285,8 +303,7 @@
       if ($validationResult['format_valid']==false || $validationResult['smtp_check']==false) {
         $this->mailErr = "* Enter email in proper format";
         $flag=false;
-      } 
-      curl_close($curl);
+      }    
       return $flag;
     }
   }
