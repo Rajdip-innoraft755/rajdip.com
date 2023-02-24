@@ -9,6 +9,7 @@
 
   // require('fpdf/fpdf.php');
   require('../vendor/autoload.php');
+  require_once('mailer.php');
   $pdf = new FPDF('P','mm','Letter');
   $pdf->AddPage();
   $pdf->SetFont('Times','B',16);
@@ -33,23 +34,6 @@
   // $pdf->Image($img_path, 60,10,90,90);
   $pdf->Output("F","../php-task6/downloads/".$_SESSION['fullname'].".pdf");
 
-
-
-  use PHPMailer\PHPMailer\PHPMailer;
-  use PHPMailer\PHPMailer\SMTP;
-  use PHPMailer\PHPMailer\Exception;
-  $mail = new PHPMailer(true);
-
-
-  // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
-  $mail->isSMTP();                                          
-  $mail->Host       = 'smtp.gmail.com';                    
-  $mail->SMTPAuth   = true;                                   
-  $mail->Username   = 'royrajdip10@gmail.com';                     
-  $mail->Password   = 'cdsbxqhkknywtcml';                              
-  $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           
-  $mail->Port       = 465;  
-      
   $mail->setFrom('royrajdip10@gmail.com', 'info@rajdip');
   $mail->addAddress($_SESSION['mail'], $_SESSION['fullname']);
   $mail->addReplyTo('royrajdip10@gmail.com', 'info@rajdip');
