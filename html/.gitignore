@@ -1,0 +1,10 @@
+vendor/
+composer.json
+composer.lock
+composer.phar
+php-task6/downloads/
+php-task2/images/
+php-task3/images/
+php-task4/images/
+php-task5/images/
+php-task6/images/
