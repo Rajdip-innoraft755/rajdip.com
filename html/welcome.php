@@ -16,7 +16,17 @@
         <h1>WELCOME USER</h1>
         <form action="welcome.php" method="GET">
           <div class="input-field user_id">
-            <span>QUESTION NUMBER :</span> <input type="text" name="q" placeholder="enetr question number" required> 
+            <!-- <span>basic task NUMBER :</span> <input type="text" name="q" placeholder="enetr basic task number" >  -->
+            <select id="select-box" name="q">
+              <option class="option" value="1">basic task 1</option>
+              <option class="option" value="2">basic task 2</option>
+              <option class="option" value="3">basic task 3</option>
+              <option class="option" value="4">basic task 4</option>
+              <option class="option" value="5">basic task 5</option>
+              <option class="option" value="6">basic task 6</option>
+              <option class="option" value="7">advance task 1</option>
+              <option class="option" value="8">advance task 2</option>
+            </select>
           </div>
           <input class="submit" type="submit" value="SEARCH">
           <a class="logout" href="logout.php">LOG OUT</a>
@@ -25,4 +35,6 @@
     </div>
   </section>
 </body>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/custom.js"></script>
 </html>

@@ -1,6 +1,5 @@
-<?php  
+<?php 
   $q=$_GET['q'];
-  // echo $q;
   switch($q){
     case 1: 
       header("location:../php-task1/index-session.php");
@@ -19,6 +18,12 @@
       break;
     case 6:
       header("location:../php-task6");
+      break;
+    case 7:
+      header("location:../php-advance-1");
+      break;
+    case 8:
+      header("location:../php-advance-2");
       break;
   }
 ?>
