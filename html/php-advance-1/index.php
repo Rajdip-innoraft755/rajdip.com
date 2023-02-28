@@ -32,7 +32,7 @@
           <?php echo $obj->content; ?>
         </div>
         <div class="btn">
-          <a href="#">Explore Now</a>
+          <a href=<?php echo $obj->link ?>>Explore Now</a>
         </div>
       </div>
     </div>

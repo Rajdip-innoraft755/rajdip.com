@@ -11,6 +11,7 @@
     public $content;
     public $img;
     public $dataLength;
+    public $link;
     
     public function __construct(){
       $this->client = new GuzzleHttp\Client();
@@ -23,6 +24,7 @@
       if($this->page_data->data[$i]->attributes->field_services != null){
         $this->title = $this->page_data->data[$i]->attributes->title;
         $this->content = $this->page_data->data[$i]->attributes->field_services->processed;
+        $this->link = 'https://ir-dev-d9.innoraft-sites.com/' . $this->page_data->data[$i]->attributes->path->alias;
         $this->getImage($this->page_data->data[$i]);
         return true;
       }

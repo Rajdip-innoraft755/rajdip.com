@@ -24,7 +24,7 @@
             <span class="error"><?php echo $obj->mailErr; ?></span>
             <span class="success"><?php echo $obj->mailSuccess; ?></span>            
           </div>
-          <input class="submit" type="submit" name="submit" id="submit">
+          <input class="submit" type="submit" name="submit" id="submit" value="submit">
         </form>
       </div>
     </section>
