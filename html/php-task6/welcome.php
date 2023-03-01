@@ -1,6 +1,6 @@
 <?php  
   session_start();
-  require('../navbar.html');
+  require('../navbar.php');
   $img_path=$_SESSION["img_path"];
   $marks=$_SESSION["marks"];
   $subject=$_SESSION["subject"];

@@ -7,7 +7,7 @@
       //if user is not logged in then redirect to login page
       header("location:../index.php");
     }
-    require_once('../navbar.html');
+    require_once('../navbar.php');
     require_once('../vendor/autoload.php');
     /**
      * Task1 - interherited from Validate 

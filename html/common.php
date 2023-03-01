@@ -2,7 +2,7 @@
   // ini_set('display_errors', 1);
   // ini_set('display_startup_errors', 1);
   // error_reporting(E_ALL);
-
+  
   
   /**
    * Validate - use to validate the input takes from user
@@ -305,6 +305,89 @@
         $flag=false;
       }    
       return $flag;
+    }
+  }
+
+  
+  class RegisterUser{
+    public $userErr="";
+    public $mailErr="";
+    public $email="";
+
+    public function checkDb($user_id,$email,$password){
+      require_once('./db/connection.php');
+      $res=$conn->query('select * from user');
+      $flag=true;
+      if ($res->num_rows > 0){
+        while($row = $res->fetch_assoc()) {
+          if($user_id == $row["user_id"]){
+            $this->userErr="user_id already exists.";
+            $flag=false;
+            break;
+          }
+        }
+      }
+      if($flag === true){
+        $this->insertDb($conn,$user_id,$email,$password);
+      }
+      return $flag;
+    }
+
+    public function insertDb($conn,$user_id,$email,$password){
+      $query="insert into user values ('$user_id','$email','$password');" ;
+      $conn->query($query);
+    }
+
+    public function vaildMail(){
+      require_once('./vendor/autoload.php');
+      $client = new GuzzleHttp\Client(['base_uri' => 'https://api.apilayer.com']);
+      $response = $client->request('GET', '/email_verification/check?email='.$this->mail,[
+        'headers' => [
+          'Content-Type' => 'text/plain',
+          'apikey' => 'Bdj7elVVLqW7Yo54gI5GzWrceeZZDGIw'
+        ]
+      ]);
+      $result=$response->getBody();
+      $validationResult = json_decode($result, TRUE);
+      $flag=true;
+      if ($validationResult['format_valid']==false || $validationResult['smtp_check']==false) {
+        $this->mailErr = "* Enter email in proper format";
+        $flag=false;
+      }    
+      return $flag;
+    }
+
+    public function __construct($user_id,$email,$password){
+      $this->mail=$email;
+      if($this->vaildMail() && $this->checkDB($user_id,$email,$password)){
+        $_SESSION["active"]=true;
+        header('location:index.php');
+      }
+    }
+
+  }
+
+
+  class ValidateUser{
+    public $user_id="";
+    public $password="";
+    public $Err="";
+    public function searchInDb(){
+      require_once('./db/connection.php');
+      $query="select user_id,password from user where user_id='$this->user_id' and password='$this->password';";
+      $res=$conn->query($query);
+      if($res->num_rows == 0){
+        $this->Err="* Invalid credentials.";
+      }
+      else{
+        header('location:welcome.php');
+      }
+    }
+
+    public function __construct($user_id,$password){
+      $this->user_id=$user_id;
+      $this->password=$password;
+      $this->searchInDb();
     }
   }
 

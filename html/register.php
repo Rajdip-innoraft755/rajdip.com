@@ -1,5 +1,5 @@
 <?php
-  require('action-login.php');
+  require('action-register.php');
 ?>
 <html lang="en">
 
@@ -19,27 +19,29 @@
       <!-- container starts -->
       <div class="container">
         <h1>welcome! please fill the details to move forward .</h1>
-        <h2><?php echo $_SESSION["msg"]; unset($_SESSION["msg"]) ; ?></h2>
         <!-- form starts -->
-        <form method="POST"  action="index.php" enctype="multipart/form-data">
-          <span class="error"><?php echo $obj->Err; ?></span>
+        <form method="POST"  action="register.php" enctype="multipart/form-data">
           <!-- input-field for user_id starts -->
           <div class="input-field user_id">
-            <span>USER ID :</span> <input type="text" name="user_id" placeholder="enetr user id" required> 
+            <span>USER ID :</span> <input type="text" name="user_id" placeholder="enetr user id" required>
+            <span class="error"><?php echo $obj->userErr; ?></span> 
           </div>
           <!-- input-field for user_id ends -->
+          <!-- input-field for email starts -->
+          <div class="input-field email">
+            <span>EMAIL ID :</span> <input type="text" name="email" placeholder="enetr email id" required> 
+            <span class="error"><?php echo $obj->mailErr; ?></span>
+          </div>
+          <!-- input-field for email ends -->
           <!-- input-field for password starts -->
           <div class="input-field password">
-            <span>PASSWORD :</span> <input type="password" name="password" placeholder="enter password" required> 
-            
+            <span>PASSWORD :<br>
+            <span class="format">* password should contain <br> 1 uppercase <br> 1 lowercase <br> 1 special character <br> 1 digit <br> atleast 8 character </span>
+            </span>
+            <input type="password" name="password" placeholder="enter password" required> 
           </div>
-          <div><a href="forgot-password/">Forgot Password</a></div>
           <!-- input-field for password ends -->
-          <a href=""></a>
-          <input class="submit" type="submit" name="submit" value="LOG IN">
-          <div>
-            Don't Have an Account ?<a href="register.php">click Here</a>
-          </div>
+          <input class="submit" type="submit" value="SIGN IN">
         </form>
         <!-- form starts -->
       </div>

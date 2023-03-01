@@ -1,5 +1,9 @@
 <?php
+  session_start();
   require('welcome-action.php');
+  if(!$_SESSION['active'] == TRUE) {
+    header('location: index.php');
+  }
 ?>
 <html lang="en">
 <head>

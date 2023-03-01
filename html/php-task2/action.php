@@ -4,7 +4,7 @@
   {
     header("location:../index.php");
   }
-  require_once('../navbar.html');
+  require_once('../navbar.php');
   require_once('../vendor/autoload.php');
   class Task2 extends Validate{
     public function setter($fname,$lname,$file_name){

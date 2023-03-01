@@ -1,6 +1,6 @@
 <?php
   require_once('../vendor/autoload.php');
-  require_once('../navbar.html');
+  require_once('../navbar.php');
   
   class AdvanceTask2 extends Validate{
     public $mailSuccess='';

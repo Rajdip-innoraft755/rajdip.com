@@ -1,7 +1,7 @@
 <?php  
   session_start();
   $img_path=$_SESSION["img_path"];
-  require_once('../navbar.html');
+  require_once('../navbar.php');
 ?>
 
 
