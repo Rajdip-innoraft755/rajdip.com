@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if($_SESSION["active"]!=true)
+  {
+    $_SESSION["msg"]="PLEASE LOGIN TO VIEW THE TASKS.";
+    header("location:../index.php");
+  }
+?>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">

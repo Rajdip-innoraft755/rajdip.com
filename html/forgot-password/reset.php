@@ -14,6 +14,9 @@
     <title>fill details</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/style_navbar.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/custom.js"></script>
+    <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
     <style>
     </style>
   </head>
@@ -24,10 +27,12 @@
         <h1>ENTER YOUR NEW PASSWORD</h1>        
         <form method="POST"  action="reset.php" enctype="multipart/form-data">
           <div class="input-field password">
-            <span>NEW PASSWORD :</span> <input required type="password" name="password" value="" placeholder="enter new password">
-            <span class="error"><?php echo $obj->Err; ?></span>            
+            <span>NEW PASSWORD :</span> <input required type="password" class="password" name="password" value="" placeholder="enter new password">
+            <i id="show-hide" class="fa fa-eye"></i> 
+            <span class="error"><?php echo $obj->passErr; ?></span>             
           </div>
           <input class="submit" type="submit" name="submit" id="submit" value="RESET PASSWORD">
+          
         </form>
       </div>
     </section>

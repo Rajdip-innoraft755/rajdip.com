@@ -9,8 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fill details</title>
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-    </style>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/custom.js"></script>
+    <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -38,7 +39,8 @@
             <span>PASSWORD :<br>
             <span class="format">* password should contain <br> 1 uppercase <br> 1 lowercase <br> 1 special character <br> 1 digit <br> atleast 8 character </span>
             </span>
-            <input type="password" name="password" placeholder="enter password" required>
+            <input type="password" class="password" name="password" placeholder="enter password" required>
+            <i id="show-hide" class="fa fa-eye"></i> 
             <span class="error"><?php echo $obj->passErr; ?></span> 
           </div>
           <!-- input-field for password ends -->

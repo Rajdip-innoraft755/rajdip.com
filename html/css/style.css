@@ -26,8 +26,8 @@ body {
 h1>span{
   color: blue;
 }
-h2{
-  color: green;
+h3{
+  color : red
 }
 .input-field {
   margin: 10px 0px;
@@ -61,6 +61,10 @@ h2{
 .input-field span {
   padding: 10px 0px;
   font-size: 20px;
+}
+.input-field i{
+  font-size: 20px;
+  cursor: pointer;
 }
 .format{
   color: blue;
@@ -104,4 +108,32 @@ h2{
 .success{
   color: green;
   font-size: 20px;
+}
+.forgot-password a{
+  font-size: 20px;
+  text-decoration: none;
+  color: red;
+}
+
+.new-account{
+  font-size: 20px;
+}
+.new-account a{
+  text-decoration: none;
+  color: blue;
+}
+.resend{
+  display: inline-block;
+  margin: 20px 0px;
+  padding: 10px 20px;
+  text-decoration: none;
+  background-color: green;
+  color: white;
+  border-radius: 20px;
+  font-size: 20px;
+  transition: 50ms ease-in;
+}
+.resend:hover{
+  color: green;
+  background-color: white;
 }

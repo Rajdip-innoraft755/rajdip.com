@@ -366,7 +366,6 @@
     public function searchInDb(){
       require_once('./db/connection.php');
       $enc_password=base64_encode($this->password);
-      echo $enc_password;
       $query="select user_id,password from user where user_id='$this->user_id' and password=MD5('$enc_password');";
       $res=$conn->query($query);
       if($res->num_rows == 0){
@@ -408,7 +407,7 @@
     public function sendOtp(){
       require_once('./mailer.php');
       $mail->setFrom('royrajdip10@gmail.com', 'info@rajdip');
-      $mail->addAddress($this->email_id);
+      $mail->addAddress($_SESSION["email_id"]);
       $mail->addReplyTo('royrajdip10@gmail.com', 'info@rajdip');
       $mail->isHTML(true);                                  
       $mail->Subject = 'OTP TO RESET PASSWORD';
@@ -441,17 +440,19 @@
     }
   }
 
-  class ResetPassword{
+  class ResetPassword extends RegisterUser{
     public $password = "";
 
 
     public function updatePassword(){
       require('../db/connection.php');
-      $enc_password=base64_encode($this->password);
-      $query = "update user set password=MD5('$enc_password') where user_id='" .$_SESSION['user_id'] ."';" ;
-      $conn->query($query);
-      $_SESSION["msg"]="password changed successfully";
-      header('location:../index.php');
+      if($this->validPassword($this->password)){
+        $enc_password=base64_encode($this->password);
+        $query = "update user set password=MD5('$enc_password') where user_id='" .$_SESSION['user_id'] ."';" ;
+        $conn->query($query);
+        $_SESSION["msg"]="password changed successfully";
+        header('location:../index.php');
+      }    
     }
 
     public function __construct($password){

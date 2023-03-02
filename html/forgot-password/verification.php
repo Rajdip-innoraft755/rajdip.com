@@ -27,7 +27,8 @@
             <span>OTP :</span> <input required type="text" name="otp" value="<?php echo isset($_POST['otp']) ? $_POST['otp'] : '' ?>" placeholder="enter otp">
             <span class="error"><?php echo $obj->Err; ?></span>            
           </div>
-          <input class="submit" type="submit" name="submit" id="submit" value="validate OTP">
+          <input class="submit" type="submit" name="submit" id="submit" value="VALIDATE OTP">
+          <a class="resend" href="resend.php">RESEND OTP</a>
         </form>
       </div>
     </section>
