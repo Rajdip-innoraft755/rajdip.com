@@ -5,6 +5,7 @@
     if($_SESSION["active"]!=true)
     {
       //if user is not logged in then redirect to login page
+      $_SESSION["msg"]="PLEASE LOGIN TO VIEW THE TASKS.";
       header("location:../index.php");
     }
     require_once('../navbar.php');

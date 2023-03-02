@@ -1,4 +1,9 @@
 <?php
+  session_start();
+  if(!$_SESSION['active'] == TRUE) {
+    $_SESSION["msg"]="PLEASE LOGIN TO VIEW THE TASKS.";
+    header('location: ../index.php');
+  }
   require_once('./class.php');
   $obj=new AdvanceTask1();
 ?>

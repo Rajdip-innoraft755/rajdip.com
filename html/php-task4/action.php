@@ -2,6 +2,7 @@
   session_start();
   if($_SESSION["active"]!=true)
   {
+    $_SESSION["msg"]="PLEASE LOGIN TO VIEW THE TASKS.";
     header("location:../index.php");
   }
   require_once('../navbar.php');

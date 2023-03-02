@@ -309,13 +309,22 @@
   }
 
   
-  class RegisterUser{
+  class RegisterUser extends Validate{
     public $userErr="";
+    public $passErr="";
     public $mailErr="";
-    public $email="";
+    public $mail="";
+
+    public function validPassword($password){
+      if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/",$password)){
+        $this->passErr="* Weak Password";
+        return false;
+      }
+      return true;
+    }
 
     public function checkDb($user_id,$email,$password){
-      require_once('./db/connection.php');
+      require_once('../db/connection.php');
       $res=$conn->query('select * from user');
       $flag=true;
       if ($res->num_rows > 0){
@@ -334,37 +343,19 @@
     }
 
     public function insertDb($conn,$user_id,$email,$password){
-      $query="insert into user values ('$user_id','$email','$password');" ;
+      $enc_password=base64_encode($password);
+      $query="insert into user values ('$user_id','$email',MD5('$enc_password'));" ;
       $conn->query($query);
     }
-
-    public function vaildMail(){
-      require_once('./vendor/autoload.php');
-      $client = new GuzzleHttp\Client(['base_uri' => 'https://api.apilayer.com']);
-      $response = $client->request('GET', '/email_verification/check?email='.$this->mail,[
-        'headers' => [
-          'Content-Type' => 'text/plain',
-          'apikey' => 'Bdj7elVVLqW7Yo54gI5GzWrceeZZDGIw'
-        ]
-      ]);
-      $result=$response->getBody();
-      $validationResult = json_decode($result, TRUE);
-      $flag=true;
-      if ($validationResult['format_valid']==false || $validationResult['smtp_check']==false) {
-        $this->mailErr = "* Enter email in proper format";
-        $flag=false;
-      }    
-      return $flag;
-    }
-
+    
     public function __construct($user_id,$email,$password){
       $this->mail=$email;
-      if($this->vaildMail() && $this->checkDB($user_id,$email,$password)){
+      if( $this->vaildMail()  && $this->validPassword($password) && $this->checkDB($user_id,$email,$password)){
         $_SESSION["active"]=true;
-        header('location:index.php');
+        $_SESSION["msg"]="account created successfully . login with your credentials .";
+        header('location:../index.php');
       }
     }
-
   }
 
 
@@ -374,7 +365,9 @@
     public $Err="";
     public function searchInDb(){
       require_once('./db/connection.php');
-      $query="select user_id,password from user where user_id='$this->user_id' and password='$this->password';";
+      $enc_password=base64_encode($this->password);
+      echo $enc_password;
+      $query="select user_id,password from user where user_id='$this->user_id' and password=MD5('$enc_password');";
       $res=$conn->query($query);
       if($res->num_rows == 0){
         $this->Err="* Invalid credentials.";
@@ -390,6 +383,84 @@
       $this->searchInDb();
     }
   }
+
+  class ForgotPassword{
+    public $user_id="";
+    public $email_id="";
+    public $Err="";
+    public function fetchMailId(){
+      require('../db/connection.php');
+      $query = "select email_id from user where user_id='$this->user_id';" ;
+      $res=$conn->query($query);
+      if($res->num_rows > 0){
+        while($row = $res->fetch_assoc()){
+          $this->email_id=$row["email_id"];
+          $_SESSION["email_id"]=$this->email_id;
+          $this->sendOtp();
+          break;
+        }
+      }
+      else{
+        $this->Err="* Invalid user Id.";
+      }
+    }
+
+    public function sendOtp(){
+      require_once('./mailer.php');
+      $mail->setFrom('royrajdip10@gmail.com', 'info@rajdip');
+      $mail->addAddress($this->email_id);
+      $mail->addReplyTo('royrajdip10@gmail.com', 'info@rajdip');
+      $mail->isHTML(true);                                  
+      $mail->Subject = 'OTP TO RESET PASSWORD';
+      $_SESSION['otp']= rand(100000, 999999);
+      $mail->Body    = "Dear  $this->user_id  <br><br> Here is your OTP. Please , don't share it with Others. <br><br> OTP : " . $_SESSION['otp'] ;
+      $mail->send();
+      header('location:verification.php');
+    }
+
+    public function __construct($user_id){
+      $this->user_id=$user_id;
+      $_SESSION["user_id"]=$user_id;
+      $this->fetchMailId();
+    }
+  }
+
+
+
+  class ValidateOtp{
+
+    public $Err="";
+    public function __construct($otp){
+      if($otp == $_SESSION["otp"]){
+        unset($_SESSION["otp"]);
+        header('location:reset.php');
+      }
+      else{
+        $this->Err="* Enter Correct OTP";
+      }
+    }
+  }
+
+  class ResetPassword{
+    public $password = "";
+
+
+    public function updatePassword(){
+      require('../db/connection.php');
+      $enc_password=base64_encode($this->password);
+      $query = "update user set password=MD5('$enc_password') where user_id='" .$_SESSION['user_id'] ."';" ;
+      $conn->query($query);
+      $_SESSION["msg"]="password changed successfully";
+      header('location:../index.php');
+    }
+
+    public function __construct($password){
+      $this->password=$password;
+      $this->updatePassword();
+    }
+  }
+
+
 
 ?>
 

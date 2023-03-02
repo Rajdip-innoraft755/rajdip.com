@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fill details</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
     </style>
   </head>
@@ -38,10 +38,12 @@
             <span>PASSWORD :<br>
             <span class="format">* password should contain <br> 1 uppercase <br> 1 lowercase <br> 1 special character <br> 1 digit <br> atleast 8 character </span>
             </span>
-            <input type="password" name="password" placeholder="enter password" required> 
+            <input type="password" name="password" placeholder="enter password" required>
+            <span class="error"><?php echo $obj->passErr; ?></span> 
           </div>
           <!-- input-field for password ends -->
           <input class="submit" type="submit" value="SIGN IN">
+          <a class="logout" href="../index.php">LOG IN</a>
         </form>
         <!-- form starts -->
       </div>

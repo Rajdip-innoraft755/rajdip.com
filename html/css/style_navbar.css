@@ -40,6 +40,7 @@
     padding: 10px 20px;
     font-size: 15px;
     border-radius: 20px;
+    font-weight: bold;
     transition: 50ms ease-in;
   }
   .account{
@@ -53,6 +54,9 @@
   .account h3{
     color:white;
     margin:0px;
+  }
+  .account a{
+    text-decoration: none;
   }
   .logout{
     display: inline-block;

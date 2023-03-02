@@ -38,7 +38,7 @@
           <a href=""></a>
           <input class="submit" type="submit" name="submit" value="LOG IN">
           <div>
-            Don't Have an Account ?<a href="register.php">click Here</a>
+            Don't Have an Account ?<a href="../register-user/register.php">click Here</a>
           </div>
         </form>
         <!-- form starts -->

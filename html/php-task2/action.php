@@ -2,6 +2,7 @@
   session_start();
   if($_SESSION["active"]!=true)
   {
+    $_SESSION["msg"]="PLEASE LOGIN TO VIEW THE TASKS.";
     header("location:../index.php");
   }
   require_once('../navbar.php');
@@ -17,9 +18,9 @@
   if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
     $obj=new Task2();
     $obj->setter($_POST["fname"],$_POST["lname"],$_FILES["image-upload"]["name"]);
-    $flag=$obj->isAlpha();
-    $flag=$obj->imgType();
-    if($flag){
+    $flagAlpha=$obj->isAlpha();
+    $flagImg=$obj->imgType();
+    if($flagAlpha && $flagImg){
       $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
       $_SESSION["img_path"]=$obj->target_file;

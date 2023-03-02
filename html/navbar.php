@@ -45,7 +45,7 @@
         <!-- menubar ends -->
         <!-- account starts -->
         <div class="account">
-          <h3>WELCOME <?php session_start(); echo "  ".$_SESSION['user']."  " ;?></h3>
+          <a href="../welcome.php"><h3>WELCOME<?php session_start(); echo " ".strtoupper($_SESSION['user']) ;?></h3></a>
           <ul>
             <li>
               <a class="logout" href="../logout.php">LOGOUT</a>

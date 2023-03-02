@@ -37,7 +37,7 @@ h2{
   column-gap: 20px;
 }
 
-.input-field input,select {
+.input-field input,select,textarea {
   border-radius: 20px;
   padding: 10px;
   border: none;
@@ -46,7 +46,14 @@ h2{
   font-size: 20px;
   background-color: white;
 }
-
+.input-field textarea{
+  width: 483px;
+  height: 132px;
+  resize: none;
+}
+.input-field input,textarea:focus {
+  outline: none;
+}
 .input-field input:focus {
   outline: none;
 }
@@ -93,4 +100,8 @@ h2{
 .logout:hover{
   color: blue;
   background-color: white;
+}
+.success{
+  color: green;
+  font-size: 20px;
 }

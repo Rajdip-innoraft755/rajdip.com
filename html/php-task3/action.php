@@ -2,6 +2,7 @@
   session_start();
   if($_SESSION["active"]!=true)
   {
+    $_SESSION["msg"]="PLEASE LOGIN TO VIEW THE TASKS.";
     header("location:../index.php");
   }
   require_once('../navbar.php');
@@ -21,7 +22,6 @@
     $flagAlpha=$obj->isAlpha();
     $flagImg=$obj->imgType();
     $flagMarks=$obj->validMarksFormat();
-    // $obj->isAlpha() && $obj->imgType() && $obj->validMarksFormat()
     if($flagAlpha && $flagImg && $flagMarks){
       $_SESSION["fullname"]="hello ! ".$obj->fname." ".$obj->lname;
       move_uploaded_file($_FILES["image-upload"]["tmp_name"], $obj->target_file);
