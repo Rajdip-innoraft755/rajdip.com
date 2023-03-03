@@ -23,11 +23,11 @@ body {
   padding: 50px;
   width: 100%;
 }
-h1>span{
+h1 > span {
   color: blue;
 }
-h3{
-  color : red
+h3 {
+  color: red;
 }
 .input-field {
   margin: 10px 0px;
@@ -37,7 +37,9 @@ h3{
   column-gap: 20px;
 }
 
-.input-field input,select,textarea {
+.input-field input,
+select,
+textarea {
   border-radius: 20px;
   padding: 10px;
   border: none;
@@ -46,12 +48,13 @@ h3{
   font-size: 20px;
   background-color: white;
 }
-.input-field textarea{
+.input-field textarea {
   width: 483px;
   height: 132px;
   resize: none;
 }
-.input-field input,textarea:focus {
+.input-field input,
+textarea:focus {
   outline: none;
 }
 .input-field input:focus {
@@ -62,11 +65,11 @@ h3{
   padding: 10px 0px;
   font-size: 20px;
 }
-.input-field i{
+.input-field i {
   font-size: 20px;
   cursor: pointer;
 }
-.format{
+.format {
   color: blue;
   text-align: left;
 }
@@ -83,14 +86,14 @@ h3{
   cursor: pointer;
   margin: 20px 0px;
 }
-.submit:hover{
+.submit:hover {
   color: blue;
   background-color: white;
 }
-.error{
+.error {
   color: red;
 }
-.logout{
+.logout {
   display: inline-block;
   margin: 20px 0px;
   padding: 10px 20px;
@@ -101,28 +104,28 @@ h3{
   font-size: 20px;
   transition: 50ms ease-in;
 }
-.logout:hover{
+.logout:hover {
   color: blue;
   background-color: white;
 }
-.success{
+.success {
   color: green;
   font-size: 20px;
 }
-.forgot-password a{
+.forgot-password a {
   font-size: 20px;
   text-decoration: none;
   color: red;
 }
 
-.new-account{
+.new-account {
   font-size: 20px;
 }
-.new-account a{
+.new-account a {
   text-decoration: none;
   color: blue;
 }
-.resend{
+.resend {
   display: inline-block;
   margin: 20px 0px;
   padding: 10px 20px;
@@ -133,7 +136,7 @@ h3{
   font-size: 20px;
   transition: 50ms ease-in;
 }
-.resend:hover{
+.resend:hover {
   color: green;
   background-color: white;
 }

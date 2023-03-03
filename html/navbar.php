@@ -1,13 +1,13 @@
 <?php
-  session_start();
-  if($_SESSION["active"]!=true)
-  {
-    $_SESSION["msg"]="PLEASE LOGIN TO VIEW THE TASKS.";
-    header("location:../index.php");
-  }
+session_start();
+if ($_SESSION["active"] != true) {
+  $_SESSION["msg"] = "PLEASE LOGIN TO VIEW THE TASKS.";
+  header("location:../index.php");
+}
 ?>
 
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +15,7 @@
   <title></title>
   <link rel="stylesheet" href="css/style_navbar.css">
 </head>
+
 <body>
   <!-- navbar starts -->
   <section class="navbar">
@@ -54,7 +55,12 @@
         <!-- menubar ends -->
         <!-- account starts -->
         <div class="account">
-          <a href="../welcome.php"><h3>WELCOME<?php session_start(); echo " ".strtoupper($_SESSION['user']) ;?></h3></a>
+          <a href="../welcome.php">
+            <h3>WELCOME
+              <?php session_start();
+              echo " " . strtoupper($_SESSION['user']); ?>
+            </h3>
+          </a>
           <ul>
             <li>
               <a class="logout" href="../logout.php">LOGOUT</a>
@@ -62,11 +68,12 @@
           </ul>
         </div>
         <!-- account ends -->
-      </div>  
+      </div>
       <!-- navwrap ends -->
     </div>
     <!-- container ends -->
   </section>
   <!-- navbar starts -->
 </body>
+
 </html>

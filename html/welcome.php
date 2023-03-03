@@ -1,11 +1,12 @@
 <?php
-  session_start();
-  require('welcome-action.php');
-  if(!$_SESSION['active'] == TRUE) {
-    header('location: index.php');
-  }
+session_start();
+require('welcome-action.php');
+if (!$_SESSION['active'] == TRUE) {
+  header('location: index.php');
+}
 ?>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
   <title>Welcome user</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
   <section class="details">
     <div class="container">
@@ -39,6 +41,7 @@
     </div>
   </section>
 </body>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/custom.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/custom.js"></script>
+
 </html>
