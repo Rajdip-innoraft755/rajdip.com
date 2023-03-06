@@ -53,5 +53,19 @@ $(document).ready(function () {
   $(".account").on("click",function(){
     $(".slide-menu").toggle();
   })
+
+  $("#userid").keyup(function(){
+    var userid = $(this).val();
+    console.log(userid);
+    $.ajax({
+      url: "../register-user/available-user.php",
+      method: "POST",
+      data: {user_id:userid},
+      datatype: "text",
+      success: function(result){
+        $(".user_id>.error").html(result);
+      }
+    });
+  });
 });
 

@@ -9,9 +9,7 @@ require('action-register.php');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>fill details</title>
   <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/jquery.min.js"></script>
-  <script src="../js/custom.js"></script>
-  <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
+  
 </head>
 
 <body>
@@ -24,10 +22,8 @@ require('action-register.php');
       <form method="POST" action="register.php" enctype="multipart/form-data">
         <!-- input-field for user_id starts -->
         <div class="input-field user_id">
-          <span>USER ID :</span> <input type="text" name="user_id" placeholder="enetr user id" required>
-          <span class="error">
-            <?php echo $obj->userErr; ?>
-          </span>
+          <span>USER ID :</span> <input type="text" name="user_id" id="userid" placeholder="enetr user id" required>
+          <span class="error"></span>
         </div>
         <!-- input-field for user_id ends -->
         <!-- input-field for email starts -->
@@ -59,6 +55,10 @@ require('action-register.php');
     <!-- container starts -->
   </section>
   <!-- details starts -->
+
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/custom.js"></script>
+  <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

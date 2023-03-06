@@ -29,12 +29,12 @@ require('action-login.php');
         </span>
         <!-- input-field for user_id starts -->
         <div class="input-field user_id">
-          <span>USER ID :</span> <input type="text" id="userid" name="user_id" placeholder="enter user id" required>
+          <span>USER ID :</span> <input type="text" name="user_id" placeholder="enter user id" required>
         </div>
         <!-- input-field for user_id ends -->
         <!-- input-field for password starts -->
         <div class="input-field ">
-          <span>PASSWORD :</span> <input type="password" id="pass" class="password" name="password" placeholder="enter password"
+          <span>PASSWORD :</span> <input type="password" class="password" name="password" placeholder="enter password"
             required>
           <i id="show-hide" class="fa fa-eye"></i>
 
