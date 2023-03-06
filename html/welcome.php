@@ -19,7 +19,7 @@ if (!$_SESSION['active'] == TRUE) {
   <section class="details">
     <div class="container">
       <div class="name">
-        <h1>WELCOME USER</h1>
+        <h1>WELCOME <?php echo strtoupper($_SESSION["user"]) ?></h1>
         <form action="welcome.php" method="GET">
           <div class="input-field user_id">
             <!-- <span>basic task NUMBER :</span> <input type="text" name="q" placeholder="enetr basic task number" >  -->

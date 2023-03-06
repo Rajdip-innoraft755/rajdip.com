@@ -49,4 +49,9 @@ $(document).ready(function () {
       $("#show-hide").css("color", "black");
     }
   });
+
+  $(".account").on("click",function(){
+    $(".slide-menu").toggle();
+  })
 });
+

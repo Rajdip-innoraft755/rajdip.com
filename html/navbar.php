@@ -55,12 +55,19 @@ if ($_SESSION["active"] != true) {
         <!-- menubar ends -->
         <!-- account starts -->
         <div class="account">
-          <a href="../welcome.php">
-            <h3>WELCOME
-              <?php session_start();
-              echo " " . strtoupper($_SESSION['user']); ?>
-            </h3>
-          </a>
+          <h3>WELCOME
+            <?php session_start();
+            echo " " . strtoupper($_SESSION['user']); ?>
+          </h3>
+          <div class="slide-menu">
+            <ul>
+              <li><a href="../welcome.php">Home</a></li>
+              <li><a href="../delete-account">Delete account</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="activity">
           <ul>
             <li>
               <a class="logout" href="../logout.php">LOGOUT</a>

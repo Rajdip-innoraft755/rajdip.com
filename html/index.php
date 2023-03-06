@@ -9,9 +9,7 @@ require('action-login.php');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>fill details</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/jquery.min.js"></script>
-  <script src="js/custom.js"></script>
-  <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
+  
 </head>
 
 <body>
@@ -31,12 +29,12 @@ require('action-login.php');
         </span>
         <!-- input-field for user_id starts -->
         <div class="input-field user_id">
-          <span>USER ID :</span> <input type="text" name="user_id" placeholder="enter user id" required>
+          <span>USER ID :</span> <input type="text" id="userid" name="user_id" placeholder="enter user id" required>
         </div>
         <!-- input-field for user_id ends -->
         <!-- input-field for password starts -->
         <div class="input-field ">
-          <span>PASSWORD :</span> <input type="password" class="password" name="password" placeholder="enter password"
+          <span>PASSWORD :</span> <input type="password" id="pass" class="password" name="password" placeholder="enter password"
             required>
           <i id="show-hide" class="fa fa-eye"></i>
 
@@ -55,6 +53,11 @@ require('action-login.php');
     <!-- container starts -->
   </section>
   <!-- details starts -->
+
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/custom.js"></script>
+  <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

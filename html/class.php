@@ -357,7 +357,8 @@ class RegisterUser extends Validate
   public function __construct($user_id, $email, $password)
   {
     $this->mail = $email;
-    if ($this->vaildMail() && $this->validPassword($password) && $this->checkDB($user_id, $email, $password)) {
+    // if ($this->vaildMail() && $this->validPassword($password) && $this->checkDB($user_id, $email, $password)) {
+    if ($this->validPassword($password) && $this->checkDB($user_id, $email, $password)) {
       $_SESSION["active"] = true;
       $_SESSION["msg"] = "account created successfully . login with your credentials .";
       header('location:../index.php');
@@ -378,7 +379,7 @@ class ValidateUser
     $query = "select user_id,password from user where user_id='$this->user_id' and password=MD5('$enc_password');";
     $res = $conn->query($query);
     if ($res->num_rows == 0) {
-      $this->Err = "* Invalid credentials.";
+      $_SESSION["msg"] = "* Invalid credentials.";
     } else {
       header('location:welcome.php');
     }
@@ -479,4 +480,34 @@ class ResetPassword extends RegisterUser
   }
 }
 
+
+class DeleteAccount
+{
+  public $passErr = "";
+  public $password = "";
+
+  public function deleteInDb()
+  {
+    require_once('../db/connection.php');
+    $enc_password = base64_encode($this->password);
+    $user_id = $_SESSION["user"];
+    $query = "delete from user where user_id='" . $_SESSION["user"] . "'and password=MD5('$enc_password');";
+    $conn->query($query);
+    $res = $conn->query("select ROW_COUNT()");
+    if ($res->fetch_assoc()["ROW_COUNT()"] > 0) {
+      unset($_SESSION["user"]);
+      unset($_SESSION["active"]);
+      $_SESSION["msg"] = "Account successfully deleted";
+      header('location:../index.php');
+    } else {
+      $this->passErr = "* Wrong Password.";
+    }
+  }
+
+  public function __construct($password)
+  {
+    $this->password = $password;
+    $this->deleteInDb();
+  }
+}
 ?>

@@ -15,6 +15,8 @@ body {
 
 .navbar {
   background-color: blue;
+  z-index: 999;
+  position: sticky;
 }
 .navwrap {
   display: flex;
@@ -44,18 +46,50 @@ body {
   transition: 50ms ease-in;
 }
 .account {
-  display: flex;
-  width: 40%;
+  /* display: block; */
+  width: 20%;
   align-items: center;
   justify-content: end;
   column-gap: 20px;
+  position: relative;
 }
 .account h3 {
   color: white;
   margin: 0px;
+  display: inline-block;
+  height: 100%;
+  padding: 20px 10px;
+  cursor: pointer;
 }
 .account a {
   text-decoration: none;
+}
+.slide-menu {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: 70px;
+  background: grey;
+  width: 100%;
+  z-index: 999;
+}
+.slide-menu ul {
+  display: flex;
+  flex-direction: column;
+}
+.slide-menu ul li {
+  border-bottom: 1px solid white;
+}
+.slide-menu ul li a {
+  color: white;
+  text-align: center;
+  padding: 10px 20px;
+  display: block;
+  font-size: 20px;
+  border-radius: 0px;
+}
+.activity {
+  align-items: center;
 }
 .logout {
   display: inline-block;
