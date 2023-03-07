@@ -5,7 +5,7 @@
 
 
 /**
- * Validate - use to validate the input takes from user
+ * ValidateData - use to validate the input takes from user
  * 
  * @author Rajdip Roy
  * 
@@ -28,7 +28,7 @@
  *  
  */
 
-class Validate
+class ValidateData
 {
 
   /**
@@ -311,203 +311,18 @@ class Validate
 }
 
 
-class RegisterUser extends Validate
-{
-  public $userErr = "";
-  public $passErr = "";
-  public $mailErr = "";
-  public $mail = "";
-
-  public function validPassword($password)
-  {
-    if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password)) {
-      $this->passErr = "* Weak Password";
-      return false;
-    }
-    return true;
-  }
-
-  public function checkDb($user_id, $email, $password)
-  {
-    require_once('../db/connection.php');
-    $res = $conn->query('select * from user');
-    $flag = true;
-    if ($res->num_rows > 0) {
-      while ($row = $res->fetch_assoc()) {
-        if ($user_id == $row["user_id"]) {
-          $this->userErr = "user_id already exists.";
-          $flag = false;
-          break;
-        }
-      }
-    }
-    if ($flag === true) {
-      $this->insertDb($conn, $user_id, $email, $password);
-    }
-    return $flag;
-  }
-
-  public function insertDb($conn, $user_id, $email, $password)
-  {
-    $enc_password = base64_encode($password);
-    $query = "insert into user values ('$user_id','$email',MD5('$enc_password'));";
-    $conn->query($query);
-  }
-
-  public function __construct($user_id, $email, $password)
-  {
-    $this->mail = $email;
-    // if ($this->vaildMail() && $this->validPassword($password) && $this->checkDB($user_id, $email, $password)) {
-    if ($this->validPassword($password) && $this->checkDB($user_id, $email, $password)) {
-      $_SESSION["active"] = true;
-      $_SESSION["msg"] = "account created successfully . login with your credentials .";
-      header('location:../index.php');
-    }
-  }
-}
-
-
-class ValidateUser
-{
-  public $user_id = "";
-  public $password = "";
-  public $Err = "";
-  public function searchInDb()
-  {
-    require_once('./db/connection.php');
-    $enc_password = base64_encode($this->password);
-    $query = "select user_id,password from user where user_id='$this->user_id' and password=MD5('$enc_password');";
-    $res = $conn->query($query);
-    if ($res->num_rows == 0) {
-      $_SESSION["msg"] = "* Invalid credentials.";
-    } else {
-      header('location:welcome.php');
-    }
-  }
-
-  public function __construct($user_id, $password)
-  {
-    $this->user_id = $user_id;
-    $this->password = $password;
-    $this->searchInDb();
-  }
-}
-
-class ForgotPassword
-{
-  public $user_id = "";
-  public $email_id = "";
-  public $Err = "";
-  public function fetchMailId()
-  {
-    require('../db/connection.php');
-    $query = "select email_id from user where user_id='$this->user_id';";
-    $res = $conn->query($query);
-    if ($res->num_rows > 0) {
-      while ($row = $res->fetch_assoc()) {
-        $this->email_id = $row["email_id"];
-        $_SESSION["email_id"] = $this->email_id;
-        $this->sendOtp();
-        break;
-      }
-    } else {
-      $this->Err = "* Invalid user Id.";
-    }
-  }
-
-  public function sendOtp()
-  {
-    require_once('./mailer.php');
-    $mail->setFrom('royrajdip10@gmail.com', 'info@rajdip');
-    $mail->addAddress($_SESSION["email_id"]);
-    $mail->addReplyTo('royrajdip10@gmail.com', 'info@rajdip');
-    $mail->isHTML(true);
-    $mail->Subject = 'OTP TO RESET PASSWORD';
-    $_SESSION['otp'] = rand(100000, 999999);
-    $mail->Body = "Dear  $this->user_id  <br><br> Here is your OTP. Please , don't share it with Others. <br><br> OTP : " . $_SESSION['otp'];
-    $mail->send();
-    header('location:verification.php');
-  }
-
-  public function __construct($user_id)
-  {
-    $this->user_id = $user_id;
-    $_SESSION["user_id"] = $user_id;
-    $this->fetchMailId();
-  }
-}
 
 
 
-class ValidateOtp
-{
 
-  public $Err = "";
-  public function __construct($otp)
-  {
-    if ($otp == $_SESSION["otp"]) {
-      unset($_SESSION["otp"]);
-      header('location:reset.php');
-    } else {
-      $this->Err = "* Enter Correct OTP";
-    }
-  }
-}
+
+
+
 
 /**
  * ResetPassword
  */
-class ResetPassword extends RegisterUser
-{
-  public $password = "";
-
-  public function updatePassword()
-  {
-    require('../db/connection.php');
-    if ($this->validPassword($this->password)) {
-      $enc_password = base64_encode($this->password);
-      $query = "update user set password=MD5('$enc_password') where user_id='" . $_SESSION['user_id'] . "';";
-      $conn->query($query);
-      $_SESSION["msg"] = "password changed successfully";
-      header('location:../index.php');
-    }
-  }
-
-  public function __construct($password)
-  {
-    $this->password = $password;
-    $this->updatePassword();
-  }
-}
 
 
-class DeleteAccount
-{
-  public $passErr = "";
-  public $password = "";
 
-  public function deleteInDb()
-  {
-    require_once('../db/connection.php');
-    $enc_password = base64_encode($this->password);
-    $user_id = $_SESSION["user"];
-    $query = "delete from user where user_id='" . $_SESSION["user"] . "'and password=MD5('$enc_password');";
-    $conn->query($query);
-    $res = $conn->query("select ROW_COUNT()");
-    if ($res->fetch_assoc()["ROW_COUNT()"] > 0) {
-      unset($_SESSION["user"]);
-      unset($_SESSION["active"]);
-      $_SESSION["msg"] = "Account successfully deleted";
-      header('location:../index.php');
-    } else {
-      $this->passErr = "* Wrong Password.";
-    }
-  }
-
-  public function __construct($password)
-  {
-    $this->password = $password;
-    $this->deleteInDb();
-  }
-}
 ?>
