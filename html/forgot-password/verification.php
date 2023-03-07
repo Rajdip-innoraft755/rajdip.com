@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
           <span>OTP :</span> <input required type="text" name="otp"
             value="<?php echo isset($_POST['otp']) ? $_POST['otp'] : '' ?>" placeholder="enter otp">
           <span class="error">
-            <?php echo $obj->Err; ?>
+            <?php if(isset($_POST["otp"])){echo $obj->Err; }?>
           </span>
         </div>
         <input class="submit" type="submit" name="submit" id="submit" value="VALIDATE OTP">

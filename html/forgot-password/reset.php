@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             placeholder="enter new password">
           <i id="show-hide" class="fa fa-eye"></i>
           <span class="error">
-            <?php echo $obj->passErr; ?>
+            <?php if(isset($_POST["password"])){echo $obj->passErr;} ?>
           </span>
         </div>
         <input class="submit" type="submit" name="submit" id="submit" value="RESET PASSWORD">

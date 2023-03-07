@@ -30,7 +30,7 @@ require('action-register.php');
         <div class="input-field email">
           <span>EMAIL ID :</span> <input type="text" name="email" placeholder="enetr email id" required>
           <span class="error">
-            <?php echo $obj->mailErr; ?>
+            <?php if(isset($_POST["email"])){echo $obj->mailErr;} ?>
           </span>
         </div>
         <!-- input-field for email ends -->
@@ -43,7 +43,7 @@ require('action-register.php');
           <input type="password" class="password" name="password" placeholder="enter password" required>
           <i id="show-hide" class="fa fa-eye"></i>
           <span class="error">
-            <?php echo $obj->passErr; ?>
+            <?php if(isset($_POST["password"])){echo $obj->passErr;} ?>
           </span>
         </div>
         <!-- input-field for password ends -->

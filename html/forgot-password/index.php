@@ -26,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
       <form method="POST" action="index.php" enctype="multipart/form-data">
         <div class="input-field mail">
           <span>USER ID :</span> <input required type="text" name="user_id"
-            value="<?php echo isset($_POST['user_id']) ? $obj->user_id : '' ?>" placeholder="enter your user id">
+            value="<?php if(isset($_POST["email"])){ $obj->user_id ;} ?>" placeholder="enter your user id">
           <span class="error">
-            <?php echo $obj->Err; ?>
+            <?php if(isset($_POST["user_id"])){echo $obj->Err;} ?>
           </span>
         </div>
         <input class="submit" type="submit" name="submit" id="submit" value="Generate OTP">

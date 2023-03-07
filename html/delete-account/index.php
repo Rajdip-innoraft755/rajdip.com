@@ -11,11 +11,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delete Account</title>
   <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/jquery.min.js"></script>
-  <script src="../js/custom.js"></script>
-  <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
-  <style>
-  </style>
 </head>
 
 <body>
@@ -28,7 +23,7 @@
             placeholder="enter new password">
           <i id="show-hide" class="fa fa-eye"></i>
           <span class="error">
-            <?php echo $obj->passErr; ?>
+            <?php if(isset($_POST["password"])){echo $obj->passErr;} ?>
           </span>
         </div>
         <input class="submit" type="submit" name="submit" id="submit" value="DELETE ACCOUNT">
@@ -36,6 +31,9 @@
       </form>
     </div>
   </section>
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/custom.js"></script>
+  <script src="https://kit.fontawesome.com/2a48c31384.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -1,6 +1,6 @@
 {
     "autoload":{          
-            "classmap": ["./class.php"]
+            "classmap": ["./classes/"]
     },
     "require": {
         "setasign/fpdf": "^1.8",
